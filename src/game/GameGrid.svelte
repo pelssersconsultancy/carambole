@@ -16,6 +16,10 @@ function isInSetupMode(): boolean {
   return GameMode.Setup === $gameStore.gameMode;
 }
 
+function isFinished(): boolean {
+  return GameMode.Finished === $gameStore.gameMode;
+}
+
 function isPlayer1(): boolean {
    return Players.Player1 === $gameStore.currentPlayer;
 }
@@ -30,7 +34,17 @@ function handleKeyPress(event) {
     return;
   }
 
+  if (isFinished()) {
+    if (!isShiftSPressed(event)) {
+      return;
+    } else {
+      console.log('starting new game');
+      gameStore.newGame();
+    }
+  }
+
   if (isShiftSPressed(event)) {
+    console.log('starting new game');
     gameStore.newGame();
   }
 
@@ -75,7 +89,7 @@ function handleKeyPress(event) {
 
 <style lang="scss">
     .grid-cell-content {
-        @apply w-4/5 h-4/5 flex justify-center items-center;
+      @apply flex justify-center items-center;
     }
 </style>
 
@@ -85,55 +99,53 @@ function handleKeyPress(event) {
   <!-- RIJ 1 spelersnamen-->
   <GridCell>
     <div 
-      class="grid-cell-content text-4xl font-bold"
+      class="grid-cell-content  w-4/5 h-4/5 text-6xl font-bold"
       class:bg-red-700="{game.player1.player === game.currentPlayer && GameMode.InProgress === game.gameMode}">
       {game.player1.name}
-      {#if game.player1.carambolesLeft === 0 }
-      <img src="images/finish-line-flag.svg" class="w-14 h-14" />
-      {/if}
    </div>
 
   </GridCell>
 
-  <GridCell><span class="grid-cell-content bg-purple-700 text-6xl font-bold">{game.gameMode}</span></GridCell>
+  <GridCell><div class="w-full h-full bg-contain bg-center bg-no-repeat" style="background-image: url('./images/bonanza.jpg')"></div></GridCell>
   <GridCell>
     <div 
-    class="grid-cell-content text-4xl font-bold"
+    class="grid-cell-content  w-4/5 h-4/5 text-6xl font-bold"
     class:bg-red-700="{game.player2.player === game.currentPlayer && GameMode.InProgress === game.gameMode}">
     {game.player2.name}
-    {#if game.player2.carambolesLeft === 0 }
-    <img src="images/finish-line-flag.svg" class="w-14 h-14" />
-    {/if}
   </div>
   </GridCell>
 
 
   <!-- RIJ 2 te maken caramboles-->
-  <GridCell>
+  <GridCell borderStyle="solid">
     <div class="grid-cell-content text-green-500 text-6xl font-bold">{game.player1.totalCaramboles} / {game.player1.carambolesToMake}</div>
   </GridCell>
-  <GridCell>
+  <GridCell borderStyle="solid">
     <div class="grid-cell-content text-green-500 text-6xl font-bold">Caramboles</div>
   </GridCell>
-  <GridCell>
+  <GridCell borderStyle="solid">
     <div class="grid-cell-content text-green-500 text-6xl font-bold">{game.player2.totalCaramboles} / {game.player2.carambolesToMake}</div>
   </GridCell>
 
   <!-- RIJ 3 totaal gemaakte caramboles-->
-  <GridCell>
-    <div class="grid-cell-content text-yellow-500 text-8xl font-bold"
+  <GridCell borderStyle="solid">
+    <div class="grid-cell-content text-yellow-500 text-11xl font-bold h-full leading-none"
       class:text-yellow-500="{!isEnteredScorePlayer1Invalid}"
       class:text-red-500="{isEnteredScorePlayer1Invalid}"
     >{game.player1.enteredScore}</div>
   </GridCell>
-  <GridCell>
-    <div class="grid-cell-content text-blue-500 text-6xl font-bold">
-      {#if game.lastTurn}<span class="text-red-600">Laatste&nbsp;</span>{/if}
-      Ronde {Math.round(game.turn / 2)}
+  <!-- @Emile: je kunt ook nog e.g. borderColor="red-300" borderSize="{8}" invullen -->
+  <GridCell borderStyle="solid">
+    <div class="grid-cell-content flex-col text-blue-500 text-6xl font-bold h-full leading-none">
+      {#if game.lastTurn}<span class="text-red-600">gelijkmakende&nbsp;</span>{/if}
+      {#if game.gameMode === GameMode.Finished }
+      Spel afgelopen <img src="images/finish-line-flag.svg" class="w-14 h-14" alt="Einde spel" />
+      {/if}
+      <span>Beurt {Math.round(game.turn / 2)}</span>
     </div>    
   </GridCell>
-  <GridCell>
-    <div class="grid-cell-content text-8xl font-bold"
+  <GridCell borderStyle="solid">
+    <div class="grid-cell-content text-11xl font-bold h-full leading-none"
     class:text-yellow-500="{!isEnteredScorePlayer2Invalid}"
     class:text-red-500="{isEnteredScorePlayer2Invalid}">{game.player2.enteredScore}</div>
   </GridCell>
@@ -151,24 +163,24 @@ function handleKeyPress(event) {
 
   <!-- RIJ 5 hoogste score -->
   <GridCell>
-    <div class="grid-cell-content text-6xl font-bold">{game.player1.highestSerie}</div>
+    <div class="grid-cell-content text-5xl font-bold">{game.player1.highestSerie}</div>
   </GridCell>
   <GridCell>
-    <div class="grid-cell-content text-6xl font-bold">Hoogste serie</div>
+    <div class="grid-cell-content text-5xl font-bold">Hoogste serie</div>
   </GridCell>
   <GridCell>
-    <div class="grid-cell-content text-6xl font-bold">{game.player2.highestSerie}</div> 
+    <div class="grid-cell-content text-5xl font-bold">{game.player2.highestSerie}</div> 
   </GridCell>
 
   <!-- RIJ 6  aantal gemaakte poedels -->
   <GridCell>
-    <div class="grid-cell-content text-6xl font-bold">{game.player1.numberOfPoedels}</div>
+    <div class="grid-cell-content text-5xl font-bold">{game.player1.numberOfPoedels}</div>
   </GridCell>
   <GridCell>
-    <div class="grid-cell-content text-6xl font-bold">Aantal poedels</div>
+    <div class="grid-cell-content text-5xl font-bold">Aantal poedels</div>
   </GridCell>
   <GridCell>
-    <div class="grid-cell-content text-6xl font-bold">{game.player2.numberOfPoedels}</div>
+    <div class="grid-cell-content text-5xl font-bold">{game.player2.numberOfPoedels}</div>
   </GridCell>
 
   <div/>

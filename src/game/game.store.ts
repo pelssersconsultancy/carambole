@@ -9,7 +9,8 @@ import {
 import { Players, DerivedGame, Game, GameMode, Player } from './game';
 
 const initialGameState: Game = {
-  gameMode: GameMode.Setup,
+  gameMode: GameMode.Setup
+  ,
   turn: 0,
   lastTurn: false,
   currentPlayer: Players.Player1,
@@ -28,6 +29,7 @@ const initialGameState: Game = {
     player: Players.Player2,
   },
 };
+
 
 const reduceInitializeGame = (
   player1: Partial<Player>,
@@ -101,13 +103,11 @@ const reduceSubmitScorePlayer1 = (score: number) => (state: Game): Game => {
 const reduceSubmitScorePlayer2 = (score: number) => (state: Game): Game => {
   const player: Player = { ...state.player2 };
   player.carambolesMade = [...player.carambolesMade, score];
-  const gameMode = state.lastTurn ? GameMode.Finished : GameMode.InProgress;
-  const lastTurn = player.carambolesToMake === sumOfScores(player.carambolesMade);
+  const gameMode = player.carambolesToMake === sumOfScores(player.carambolesMade) ? GameMode.Finished : GameMode.InProgress;
 
   return {
     ...state,
     gameMode,
-    lastTurn,
     player2: player,
     turn: state.turn + 1,
     currentPlayer: Players.Player1,

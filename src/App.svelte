@@ -10,7 +10,7 @@ $: isInSetupMode = GameMode.Setup === $gameStore.gameMode;
 
 <Header />
 
-<main class="h-screen mt-16 mb-16">
+<main class="h-screen mt-16 mb-16 ">
   {#if isInSetupMode}
   <SetupGame></SetupGame>    
   {:else}  
