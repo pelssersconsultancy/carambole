@@ -1,0 +1,13 @@
+Opmerkingen:
+
+* bij 0 of bij lege enter --> poedel
+
+* met page down en page up kan ik eerst nog scores verbeteren als het terug mijn beurt is ZONDER dat het invloed op mijn gemiddelde heeft
+
+* switchen van kant spelers
+
+* logo bonanza (aanpasbaar)
+
+* border kleur, dikte en style mee kunnen geven aan grid
+
+* enkel speler mag een gelijkmakende beurt spelen (tekst op 2 regels)
