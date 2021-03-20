@@ -9,5 +9,5 @@ Opmerkingen:
 * logo bonanza (aanpasbaar)
 
 * border kleur, dikte en style mee kunnen geven aan grid
-
+S
 * enkel speler mag een gelijkmakende beurt spelen (tekst op 2 regels)
