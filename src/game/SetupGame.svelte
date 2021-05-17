@@ -5,7 +5,6 @@ import TextInput from "../UI/TextInput.svelte";
 import Button from "../UI/Button.svelte";
 import { gameStore } from './game.store';
 import type { Player } from './game';
-import { GameMode } from './game';
 import { isEnterPressed } from '../helpers/keyhelpers';
 
   let player1Name: string = $gameStore.player1.name;
@@ -20,8 +19,6 @@ import { isEnterPressed } from '../helpers/keyhelpers';
 
   $: formIsValid = player1NameValid && player1CarambolesValid && player2NameValid && player2CarambolesValid;
 
-  $: isInSetupMode = GameMode.Setup === $gameStore.gameMode;
-
   function submitForm() {
      if (!formIsValid) {
        return;
@@ -32,10 +29,7 @@ import { isEnterPressed } from '../helpers/keyhelpers';
   }
 
   function handleKeyDown(event): void {
-    if (!isInSetupMode) {
-      return;
-    }
-
+    console.log('SetupGame handling',event);
     if (isEnterPressed(event)) {
        submitForm();
      }

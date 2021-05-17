@@ -5,8 +5,11 @@
     "watch:tailwind": "postcss public/tailwind.css -o public/index.css -w",
     "build:tailwind": "cross-env NODE_ENV=production postcss public/tailwind.css -o public/index.css",
     "build": "yarn build:tailwind && rollup -c",
-    "dev": "concurrently \"rollup -c -w\" \"yarn watch:tailwind\"",
-    "start": "electron .",
+    "autobuild": "rollup -c -w",
+    "dev": "concurrently \"yarn autobuild\" \"yarn watch:tailwind\"",
+    "start-electron": "electron .",
+    "start": "sirv public",
+    "start:dev": "sirv public --dev",
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
   },

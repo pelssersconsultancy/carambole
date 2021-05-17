@@ -2,8 +2,8 @@
     import Button from "../UI/Button.svelte";
 </script>
 
-<header class="fixed top-0 left-0 w-screen flex justify-center items-center bg-gray-800 h-16">
+<header class="fixed top-0 left-0 flex items-center justify-center w-screen h-16 bg-gray-800">
   <Button type="button">
-    Stel in [shift+s]
+    Nieuw Spel [shift+n]
   </Button>
 </header>

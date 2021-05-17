@@ -9,8 +9,7 @@ import {
 import { Players, DerivedGame, Game, GameMode, Player } from './game';
 
 const initialGameState: Game = {
-  gameMode: GameMode.Setup
-  ,
+  gameMode: GameMode.Setup,
   turn: 0,
   lastTurn: false,
   currentPlayer: Players.Player1,
@@ -87,12 +86,10 @@ const reduceEnteringScore = (score: string) => (state: Game): Game => {
 const reduceSubmitScorePlayer1 = (score: number) => (state: Game): Game => {
   const player: Player = { ...state.player1 };
   player.carambolesMade = [...player.carambolesMade, score];
-  const gameMode = state.lastTurn ? GameMode.Finished : GameMode.InProgress;
-  const lastTurn = player.carambolesToMake === sumOfScores(player.carambolesMade);
+  const lastTurn = hasScoredRequiredCaramboles(player);
 
   return {
     ...state,
-    gameMode,
     lastTurn,
     player1: player,
     turn: state.turn + 1,
@@ -103,7 +100,7 @@ const reduceSubmitScorePlayer1 = (score: number) => (state: Game): Game => {
 const reduceSubmitScorePlayer2 = (score: number) => (state: Game): Game => {
   const player: Player = { ...state.player2 };
   player.carambolesMade = [...player.carambolesMade, score];
-  const gameMode = player.carambolesToMake === sumOfScores(player.carambolesMade) ? GameMode.Finished : GameMode.InProgress;
+  const gameMode = state.lastTurn || hasScoredRequiredCaramboles(player) ? GameMode.Finished : GameMode.InProgress;
 
   return {
     ...state,
@@ -122,6 +119,10 @@ const reduceSubmitScore = (score: number) => (state: Game): Game => {
       : reduceSubmitScorePlayer2(score);
   return reducer(state);
 };
+
+function hasScoredRequiredCaramboles(player: Player): boolean {
+  return player.carambolesToMake === sumOfScores(player.carambolesMade);
+}
 
 function createGameStore() {
   const gameStore = writable(initialGameState);
