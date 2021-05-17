@@ -95,21 +95,21 @@ function handleKeyPress(event) {
 
 <svelte:window on:keydown={handleKeyPress}/>
 
-<section class="h-full grid grid-cols-3 justify-items-center text-gray-100">
+<section class="grid h-full grid-cols-3 text-gray-100 justify-items-center">
   <!-- RIJ 1 spelersnamen-->
   <GridCell>
     <div 
-      class="grid-cell-content  w-4/5 h-4/5 text-6xl font-bold"
+      class="w-4/5 text-6xl font-bold grid-cell-content h-4/5"
       class:bg-red-700="{game.player1.player === game.currentPlayer && GameMode.InProgress === game.gameMode}">
       {game.player1.name}
    </div>
 
   </GridCell>
 
-  <GridCell><div class="w-full h-full bg-contain bg-center bg-no-repeat" style="background-image: url('./images/bonanza.jpg')"></div></GridCell>
+  <GridCell><div class="w-full h-full bg-center bg-no-repeat bg-contain" style="background-image: url('./images/bonanza.jpg')"></div></GridCell>
   <GridCell>
     <div 
-    class="grid-cell-content  w-4/5 h-4/5 text-6xl font-bold"
+    class="w-4/5 text-6xl font-bold grid-cell-content h-4/5"
     class:bg-red-700="{game.player2.player === game.currentPlayer && GameMode.InProgress === game.gameMode}">
     {game.player2.name}
   </div>
@@ -118,25 +118,25 @@ function handleKeyPress(event) {
 
   <!-- RIJ 2 te maken caramboles-->
   <GridCell borderStyle="solid">
-    <div class="grid-cell-content text-green-500 text-6xl font-bold">{game.player1.totalCaramboles} / {game.player1.carambolesToMake}</div>
+    <div class="text-6xl font-bold text-green-500 grid-cell-content">{game.player1.totalCaramboles} / {game.player1.carambolesToMake}</div>
   </GridCell>
   <GridCell borderStyle="solid">
-    <div class="grid-cell-content text-green-500 text-6xl font-bold">Caramboles</div>
+    <div class="text-6xl font-bold text-green-500 grid-cell-content">Caramboles</div>
   </GridCell>
   <GridCell borderStyle="solid">
-    <div class="grid-cell-content text-green-500 text-6xl font-bold">{game.player2.totalCaramboles} / {game.player2.carambolesToMake}</div>
+    <div class="text-6xl font-bold text-green-500 grid-cell-content">{game.player2.totalCaramboles} / {game.player2.carambolesToMake}</div>
   </GridCell>
 
   <!-- RIJ 3 totaal gemaakte caramboles-->
   <GridCell borderStyle="solid">
-    <div class="grid-cell-content text-yellow-500 text-11xl font-bold h-full leading-none"
+    <div class="h-full font-bold leading-none text-yellow-500 grid-cell-content text-11xl"
       class:text-yellow-500="{!isEnteredScorePlayer1Invalid}"
       class:text-red-500="{isEnteredScorePlayer1Invalid}"
     >{game.player1.enteredScore}</div>
   </GridCell>
   <!-- @Emile: je kunt ook nog e.g. borderColor="red-300" borderSize="{8}" invullen -->
   <GridCell borderStyle="solid">
-    <div class="grid-cell-content flex-col text-blue-500 text-6xl font-bold h-full leading-none">
+    <div class="flex-col h-full text-6xl font-bold leading-none text-blue-500 grid-cell-content">
       {#if game.lastTurn}<span class="text-red-600">gelijkmakende&nbsp;</span>{/if}
       {#if game.gameMode === GameMode.Finished }
       Spel afgelopen <img src="images/finish-line-flag.svg" class="w-14 h-14" alt="Einde spel" />
@@ -145,42 +145,42 @@ function handleKeyPress(event) {
     </div>    
   </GridCell>
   <GridCell borderStyle="solid">
-    <div class="grid-cell-content text-11xl font-bold h-full leading-none"
+    <div class="h-full font-bold leading-none grid-cell-content text-11xl"
     class:text-yellow-500="{!isEnteredScorePlayer2Invalid}"
     class:text-red-500="{isEnteredScorePlayer2Invalid}">{game.player2.enteredScore}</div>
   </GridCell>
 
   <!-- RIJ 4 gemiddelde van gemaakte caramboles-->
   <GridCell>
-    <div class="grid-cell-content text-6xl font-bold">{game.player1.averageCaramboles.toFixed(3)}</div>
+    <div class="text-6xl font-bold grid-cell-content">{game.player1.averageCaramboles.toFixed(3)}</div>
   </GridCell>
   <GridCell>
-    <div class="grid-cell-content text-6xl font-bold">Gemiddelde</div>
+    <div class="text-6xl font-bold grid-cell-content">Gemiddelde</div>
   </GridCell>
   <GridCell>
-    <div class="grid-cell-content text-6xl font-bold">{game.player2.averageCaramboles.toFixed(3)}</div> 
+    <div class="text-6xl font-bold grid-cell-content">{game.player2.averageCaramboles.toFixed(3)}</div> 
   </GridCell>
 
   <!-- RIJ 5 hoogste score -->
   <GridCell>
-    <div class="grid-cell-content text-5xl font-bold">{game.player1.highestSerie}</div>
+    <div class="text-5xl font-bold grid-cell-content">{game.player1.highestSerie}</div>
   </GridCell>
   <GridCell>
-    <div class="grid-cell-content text-5xl font-bold">Hoogste serie</div>
+    <div class="text-5xl font-bold grid-cell-content">Hoogste serie</div>
   </GridCell>
   <GridCell>
-    <div class="grid-cell-content text-5xl font-bold">{game.player2.highestSerie}</div> 
+    <div class="text-5xl font-bold grid-cell-content">{game.player2.highestSerie}</div> 
   </GridCell>
 
   <!-- RIJ 6  aantal gemaakte poedels -->
   <GridCell>
-    <div class="grid-cell-content text-5xl font-bold">{game.player1.numberOfPoedels}</div>
+    <div class="text-5xl font-bold grid-cell-content">{game.player1.numberOfPoedels}</div>
   </GridCell>
   <GridCell>
-    <div class="grid-cell-content text-5xl font-bold">Aantal poedels</div>
+    <div class="text-5xl font-bold grid-cell-content">Aantal poedels</div>
   </GridCell>
   <GridCell>
-    <div class="grid-cell-content text-5xl font-bold">{game.player2.numberOfPoedels}</div>
+    <div class="text-5xl font-bold grid-cell-content">{game.player2.numberOfPoedels}</div>
   </GridCell>
 
   <div/>

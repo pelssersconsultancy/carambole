@@ -40,41 +40,47 @@ import { isEnterPressed } from '../helpers/keyhelpers';
        submitForm();
      }
   }
-
 </script>
 <svelte:window on:keydown={handleKeyDown}/>
 <Modal title="Stel spelers in">
   <form on:submit={submitForm}>
-    <TextInput
+    <p>Speler 1</p>
+    <div class="p-2 mt-2 mb-2 border-4 border-yellow-300">
+      <TextInput
       id="player1Name"
-      label="Naam Speler 1"
+      label="Naam"
       valid={player1NameValid}
-      validityMessage="Naam van speler 1 mag niet leeg zijn "
+      validityMessage="Naam van speler mag niet leeg zijn"
       value={player1Name}
       on:input={event => (player1Name = event.target.value)} />
     <TextInput
       id="player1Caramboles"
-      label="Te maken Caramboles Speler 1"
+      label="Te maken Caramboles"
       type="number"
       valid={player1CarambolesValid}
-      validityMessage="Het aantal te maken caramboles moet een positief getal zijn "
+      validityMessage="Het aantal te maken caramboles moet een positief getal zijn"
       value={player1Caramboles}
       on:input={event => (player1Caramboles = parseInt(event.target.value, 10))} />  
+    </div>
+    <p>Speler 2</p>
+    <div class="p-2 mt-2 border-4 border-green-300">
       <TextInput
       id="player2Name"
-      label="Naam Speler 2"
+      label="Naam"
       valid={player2NameValid}
-      validityMessage="Naam van speler 2 mag niet leeg zijn "
+      validityMessage="Naam van speler mag niet leeg zijn"
       value={player2Name}
       on:input={event => (player2Name = event.target.value)} />
+
     <TextInput
       id="player2Caramboles"
-      label="Te maken Caramboles Speler 2"
+      label="Te maken Caramboles"
       type="number"
       valid={player2CarambolesValid}
-      validityMessage="Het aantal te maken caramboles moet een positief getal zijn "
+      validityMessage="Het aantal te maken caramboles moet een positief getal zijn"
       value={player2Caramboles}
       on:input={event => (player2Caramboles = parseInt(event.target.value, 10))} />
+      <div>
   </form>
   <div slot="footer">
     <Button type="button" on:click={submitForm} disabled={!formIsValid}>
