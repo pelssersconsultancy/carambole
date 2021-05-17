@@ -5,7 +5,7 @@ import TextInput from "../UI/TextInput.svelte";
 import Button from "../UI/Button.svelte";
 import { gameStore } from './game.store';
 import type { Player } from './game';
-import { isEnterPressed } from '../helpers/keyhelpers';
+import { isEnterPressed, isShiftSPressed } from '../helpers/keyhelpers';
 
   let player1Name: string = $gameStore.player1.name;
   let player1Caramboles: number = $gameStore.player1.carambolesToMake;
@@ -28,10 +28,25 @@ import { isEnterPressed } from '../helpers/keyhelpers';
      gameStore.initializeGame(player1, player2);
   }
 
+  function switchPlayers() {
+    console.log('switching players');
+    const player1NameOld = player1Name;
+    const player1CarambolesOld = player1Caramboles;
+    const player2NameOld = player2Name;
+    const player2CarambolesOld = player2Caramboles;
+    player1Name = player2NameOld;
+    player1Caramboles = player2CarambolesOld;
+    player2Name = player1NameOld;
+    player2Caramboles = player1CarambolesOld;
+  }
+
   function handleKeyDown(event): void {
     console.log('SetupGame handling',event);
     if (isEnterPressed(event)) {
        submitForm();
+     }
+     if (isShiftSPressed(event)) {
+      switchPlayers();
      }
   }
 </script>
@@ -79,6 +94,9 @@ import { isEnterPressed } from '../helpers/keyhelpers';
   <div slot="footer">
     <Button type="button" on:click={submitForm} disabled={!formIsValid}>
       Start Spel [Enter]
+    </Button>
+    <Button type="button" on:click={switchPlayers}  disabled={!formIsValid}>
+      Switch spelers [Shift+s]
     </Button>
   </div>
 </Modal>
