@@ -5,3 +5,5 @@ export const isShiftSPressed = (event) => event.code === 'KeyS' && event.shiftKe
 export const isShiftNPressed = (event) => event.code === 'KeyN' && event.shiftKey === true;
 export const isNumberPressed = (event) => digitCodes.includes(event.code);
 export const isBackspacePressed = (event) => event.code === 'Backspace';
+export const isPageDownPressed = (event) => event.code === 'PageDown';
+export const isPageUpPressed = (event) => event.code === 'PageUp';

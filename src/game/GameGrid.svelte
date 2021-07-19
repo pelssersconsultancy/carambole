@@ -3,6 +3,8 @@
     isBackspacePressed,
     isEnterPressed,
     isNumberPressed,
+    isPageDownPressed,
+    isPageUpPressed,
     isShiftNPressed,
   } from '../helpers/keyhelpers';
 
@@ -47,6 +49,15 @@
 
   function handleKeyPressInProgressGame(event) {
     console.log('GameGrid handleKeyPressInProgressGame', event);
+    
+    if (isPageDownPressed(event)) {
+      gameStore.correctLastScoreDown();
+    }
+
+    if (isPageUpPressed(event)) {
+      gameStore.correctLastScoreUp();
+    }
+    
     if (isShiftNPressed(event)) {
       gameStore.newGame();
     }
@@ -87,6 +98,8 @@
         gameStore.enteringScore(currentScorePlayer2.toString());
       }
     }
+
+
   }
 
   function handleKeyPress(event) {

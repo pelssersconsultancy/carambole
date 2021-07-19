@@ -10,6 +10,8 @@ $: isInSetupMode = GameMode.Setup === $gameStore.gameMode;
 
 <Header />
 
+<!-- <section id="debug" class="bg-white"><pre> {JSON.stringify($gameStore, undefined, 4) }</pre></section> -->
+
 <main class="h-screen mt-16 mb-16 ">
   {#if isInSetupMode}
   <SetupGame></SetupGame>    
@@ -18,4 +20,5 @@ $: isInSetupMode = GameMode.Setup === $gameStore.gameMode;
   {/if}
 </main>
 
-<section id="debug" class="bg-white"><pre> {JSON.stringify($gameStore, undefined, 4) }</pre></section>
+
+

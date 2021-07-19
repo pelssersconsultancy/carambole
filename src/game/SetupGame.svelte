@@ -54,7 +54,7 @@ import { isEnterPressed, isShiftSPressed } from '../helpers/keyhelpers';
 <Modal title="Stel spelers in">
   <form on:submit={submitForm}>
     <p>Speler 1</p>
-    <div class="p-2 mt-2 mb-2 border-4 border-yellow-300">
+    <div class="p-2 mt-2 mb-2 bg-gray-300 border-4">
       <TextInput
       id="player1Name"
       label="Naam"
@@ -72,7 +72,7 @@ import { isEnterPressed, isShiftSPressed } from '../helpers/keyhelpers';
       on:input={event => (player1Caramboles = parseInt(event.target.value, 10))} />  
     </div>
     <p>Speler 2</p>
-    <div class="p-2 mt-2 border-4 border-green-300">
+    <div class="p-2 mt-2 bg-gray-300 border-4">
       <TextInput
       id="player2Name"
       label="Naam"

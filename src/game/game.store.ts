@@ -55,6 +55,55 @@ const reduceNewGame = () => (state: Game): Game => ({
   }
 });
 
+const reduceCorrectLastScore = (correction: number) => (state: Game): Game => {
+  const currentPlayer = state.currentPlayer;
+
+  const reducer =
+    currentPlayer === Players.Player1
+      ? reduceCorrectLastScorePlayer1(correction)
+      : reduceCorrectLastScorePlayer2(correction);
+  return reducer(state);
+
+};
+
+const reduceCorrectLastScorePlayer1 = (correction: number) => (state: Game): Game => {
+  const carambolesMade = [...state.player1.carambolesMade];
+  if (carambolesMade.length === 0 ) {
+    return;
+  }
+  const lastScore = carambolesMade.pop();
+  const newEnteredScore = lastScore + correction;
+  const newCarambolesMade = [...carambolesMade, newEnteredScore];
+
+  return {
+    ...state,
+    player1: {
+      ...state.player1,
+      enteredScore: `${newEnteredScore}`,
+      carambolesMade: newCarambolesMade
+    }
+  };  
+}  
+
+const reduceCorrectLastScorePlayer2= (correction: number) => (state: Game): Game => {
+  const carambolesMade = [...state.player2.carambolesMade];
+  if (carambolesMade.length === 0 ) {
+    return;
+  }
+  const lastScore = carambolesMade.pop();
+  const newEnteredScore = lastScore + correction;
+  const newCarambolesMade = [...carambolesMade, newEnteredScore];
+
+  return {
+    ...state,
+    player2: {
+      ...state.player2,
+      enteredScore: `${newEnteredScore}`,
+      carambolesMade: newCarambolesMade
+    }
+  };  
+}  
+
 const reduceEnteringScorePlayer1 = (score: string) => (state: Game): Game => {
   const player: Player = { ...state.player1 };
   player.enteredScore = score;
@@ -172,6 +221,8 @@ function createGameStore() {
     newGame: () => update(reduceNewGame()),
     enteringScore: (score: string) => update(reduceEnteringScore(score)),
     submitScore: (score: number) => update(reduceSubmitScore(score)),
+    correctLastScoreDown: () => update(reduceCorrectLastScore(-1)),
+    correctLastScoreUp: () => update(reduceCorrectLastScore(1)),
   };
 }
 
